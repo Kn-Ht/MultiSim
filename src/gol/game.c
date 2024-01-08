@@ -200,7 +200,7 @@ SelectedGame game_of_life_update(GameOfLife* gol) {
             static Color midnight_fg_color = {
                 .r = 0,
                 .g = 0,
-                .g = 100,
+                .b = 100,
                 .a = 255,
             };
             for (uint32_t y = 0; y < gol->universe.height; y++) {

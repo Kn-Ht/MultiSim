@@ -137,25 +137,26 @@ update_dvd:
         self->position.y <= 0
     ) self->velocity.y *= -1;
 
-draw_dvd:
-    static Color tint;
-    tint = self->rainbow?
-        self->inverted?
-            ColorFromHSV(self->passed_time * 10.0f, 1.0, 1.0) :
-            ColorFromHSV(self->passed_time * 10.0, 0.6, 1.0)
-        : self->inverted? WHITE : BLACK;
+    draw_dvd: {
+        static Color tint;
+        tint = self->rainbow?
+            self->inverted?
+                ColorFromHSV(self->passed_time * 10.0f, 1.0, 1.0) :
+                ColorFromHSV(self->passed_time * 10.0, 0.6, 1.0)
+            : self->inverted? WHITE : BLACK;
 
-    BeginDrawing();
-    ClearBackground((self->inverted)? BLACK : RAYWHITE);
-    if (self->state == GameState_Paused) {
-        DrawTextD("[SPACE TO UNPAUSE]", 3, global_screen_height - FONT_S, FONT_S, GREEN);
+        BeginDrawing();
+        ClearBackground((self->inverted)? BLACK : RAYWHITE);
+        if (self->state == GameState_Paused) {
+            DrawTextD("[SPACE TO UNPAUSE]", 3, global_screen_height - FONT_S, FONT_S, GREEN);
+        }
+        DrawTexture(
+            self->logo,
+            self->position.x,
+            self->position.y,
+            tint
+        );
     }
-    DrawTexture(
-        self->logo,
-        self->position.x,
-        self->position.y,
-        tint
-    );
 
     return Selected_DVD;
 }
