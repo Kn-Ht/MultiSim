@@ -4,9 +4,9 @@
 //! Definition of the type Cell, which makes up the grid.
 //! This is defined as a typedef instead of enum for size optimization, _Bool = 1 byte.
 
-typedef bool Cell;
-#define Alive true
-#define Dead false
+typedef _Bool Cell;
+#define Dead 0
+#define Alive 1
 
 static inline Cell cell_next_iteration(Cell old, int neighbours) {
     return old?

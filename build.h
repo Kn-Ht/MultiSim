@@ -33,7 +33,7 @@ int run_cmd(const char* command) {
 #ifdef __APPLE__
 #define CC "clang"
 #else
-#define CC "g++"
+#define CC "gcc"
 #endif
 #endif
 
@@ -70,7 +70,7 @@ int run_cmd(const char* command) {
 #endif
 
 #ifndef IN
-#define IN " ./src/main.cpp "
+#define IN " ./src/main.c "
 #endif
 
 #ifndef OUT

@@ -1,10 +1,10 @@
 #include "raylib.h"
-#include "const.hpp"
+#include "const.h"
 
 #include <stdio.h>
 #include <stdint.h>
 
-#include "ui/selector.cpp"
+#include "ui/selector.c"
 #include "ui/windowicon.c"
 
 int main(void) {
@@ -13,33 +13,36 @@ int main(void) {
 
     InitAudioDevice();
 
+    // the selector manages all the games and renders the title screen
+    Selector selector = {0};
+
 #ifndef DEBUG
     SetTraceLogLevel(LOG_ERROR);
 #endif
 
     // raylib initialization
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-    InitWindow(WINDOW_W, WINDOW_H, selected_get_window_title(Selected_None));
+    InitWindow(WINDOW_W, WINDOW_H, selected_get_window_title(selector.selected));
     // SetTargetFPS(300);
     SetExitKey(0);
     SetWindowMinSize(WINDOW_W, WINDOW_H);
 
     // initialization of bundled binary files
-    assets_load();
+    load_default_font();
     load_window_icon();
     SetWindowIcon(window_icon);
 
-    // the selector manages all the games and renders the title screen
-    Selector selector;
+    // this will create all the game structs
+    selector_init(&selector);
 
     while (!WindowShouldClose()) {
-        selector.update();
+        selector_update(&selector);
     }
 
+    selector_deinit(&selector);
     CloseWindow();
 
     unload_window_icon();
-    assets_unload();
 
     return 0;
 }
