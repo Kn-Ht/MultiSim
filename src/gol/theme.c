@@ -24,15 +24,13 @@ typedef enum {
     Theme_Bolus,
 } Theme;
 
-void theme_toggle_bolus(Theme* theme) {
-    *theme = (*theme == Theme_Bolus)? Theme_Default : Theme_Bolus;
-}
+#define THEME_TOGGLE_BOLUS(T) \
+    (T) = ((T) == Theme_Bolus)? Theme_Default : Theme_Bolus
 
-void theme_cycle(Theme* theme) {
-    *theme = (*theme == Theme_Bolus)?
-        Theme_Default : ((*theme) + 1 == Theme_Bolus)?
-            Theme_Default : (*theme) + 1;
-}
+#define CYCLE_THEME(T) \
+    (T) = ((T) == Theme_Bolus)? \
+        Theme_Default : ((T) + 1 == Theme_Bolus)? \
+            Theme_Default : (T) + 1
 
 static const ThemeStyle THEMES[] = {
     [Theme_Default] = {

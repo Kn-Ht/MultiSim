@@ -7,7 +7,7 @@
 
 // for easily switching MingW compilation on/off.
 // set to 1 for cross compilation with mingw (replace CC as needed)
-#if 1
+#if 0
     #define MINGW_BUILD
     #define CC "x86_64-w64-mingw32-gcc"
     #define RESOURCE_COMMAND " x86_64-w64-mingw32-windres winresource/resource.rc -o winresource/resource.o "

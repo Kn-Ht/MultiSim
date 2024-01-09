@@ -138,7 +138,7 @@ SelectedGame game_of_life_update(GameOfLife* gol) {
         } break;
         case KEY_T: {
             gol->prev_theme = gol->theme;
-            theme_cycle(&(gol->theme));
+            CYCLE_THEME(gol->theme);
         } break;
         case KEY_I: {
             universe_invert(&(gol->universe));
@@ -148,7 +148,7 @@ SelectedGame game_of_life_update(GameOfLife* gol) {
         } break;
         case KEY_B: {
             gol->prev_theme = gol->theme;
-            theme_toggle_bolus(&(gol->theme));
+            THEME_TOGGLE_BOLUS(gol->theme);
         } break;
         case KEY_SPACE: {
             gol_state_toggle(gol);
@@ -287,7 +287,7 @@ SelectedGame game_of_life_update(GameOfLife* gol) {
     int icon_padding_x = ICON_PADDING;
 
     if (GuiButton(rect(icon_padding_x, icon_y, ICON_SIZE, ICON_SIZE), "#129#")) {
-        gol->update_frame_cap = max(0.0, gol->update_frame_cap - GOL_DEFAULT_TIME_STEP);
+        gol->update_frame_cap += GOL_DEFAULT_TIME_STEP;
         draw_update_time = true;
         passed_show_scroll_time = 0.0;
     }
@@ -299,7 +299,7 @@ SelectedGame game_of_life_update(GameOfLife* gol) {
         rect(icon_padding_x += ICON_SIZE + ICON_PADDING, icon_y, ICON_SIZE, ICON_SIZE),
         "#134#"
     )) {
-        gol->update_frame_cap += GOL_DEFAULT_TIME_STEP;
+        gol->update_frame_cap = max(0.0f, gol->update_frame_cap - GOL_DEFAULT_TIME_STEP);
         draw_update_time = true;
         passed_show_scroll_time = 0.0;
     }
@@ -328,7 +328,10 @@ SelectedGame game_of_life_update(GameOfLife* gol) {
     if (GuiButton(
         rect(icon_padding_x -= ICON_SIZE - ICON_PADDING, icon_y, ICON_SIZE, ICON_SIZE),
         "#26#"
-    )) theme_cycle(&(gol->theme));
+    )) {
+        gol->prev_theme = gol->theme;
+        CYCLE_THEME(gol->theme);
+    }
 
     //snprintf(buffer, sizeof buffer, "%llu", gol->iterations); // NOTE: this might be useful later
     //DrawTextD(buffer, icon_padding_x - 100, icon_y, 30.0, WHITE);
