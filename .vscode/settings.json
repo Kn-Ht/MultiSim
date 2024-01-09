@@ -1,5 +1,6 @@
 {
     "files.associations": {
+        "*.xyz": "v",
         "raylib.h": "c",
         "atomic": "c",
         "compare": "c",
@@ -11,7 +12,8 @@
         "xmemory": "c",
         "xstring": "c",
         "xutility": "c",
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "build.h": "c"
     },
     "C_Cpp.errorSquiggles": "enabled"
 }

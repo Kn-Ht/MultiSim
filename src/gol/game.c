@@ -15,7 +15,7 @@
 //! The general game code. Things such as rendering and state management
 //! are done in here.
 
-typedef struct {
+typedef struct GameOfLife {
     Universe universe;
     GameState state;
     float update_frame_cap;

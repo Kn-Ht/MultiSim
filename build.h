@@ -19,7 +19,10 @@ int run_cmd(const char* command) {
 }
 
 // mkdir
-#if defined(_WIN32)
+#if defined(MINGW_BUILD)
+#  include <sys/stat.h>
+#  define MKDIR(PATH) mkdir(PATH, 0755)
+#elif defined(_WIN32)
 #  include <direct.h>
 #  define MKDIR(PATH) _mkdir(PATH)
 #else
@@ -64,7 +67,7 @@ int run_cmd(const char* command) {
 // raylib linking flags
 #ifndef RAYFLAGS
 #define RAYFLAGS \
-    " -D_GNU_SOURCE -std=gnu99 "\
+    " -D_GNU_SOURCE -std=c17 "\
     "-DGL_SILENCE_DEPRECATION=199309L "\
     "-I include/external/glfw/include "
 #endif
